@@ -15,6 +15,22 @@ export default class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const localData = localStorage.getItem('contacts');
+    if (localData) {
+      this.setState({ contacts: JSON.parse(localData) });
+      // Notiflix.Notify.info(`you have ${this.state.contacts.length} contacts`);
+    } else {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   formSubmit = newContact => {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
