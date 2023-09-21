@@ -19,7 +19,7 @@ export default class App extends Component {
     const localData = localStorage.getItem('contacts');
     if (localData) {
       this.setState({ contacts: JSON.parse(localData) });
-      // Notiflix.Notify.info(`you have ${this.state.contacts.length} contacts`);
+      Notiflix.Notify.info(`you have ${JSON.parse(localData).length} contacts`);
     } else {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
@@ -38,7 +38,7 @@ export default class App extends Component {
   };
 
   handleChange = ({ target: { value } }) => {
-    this.setState({ filter: value }, console.log(this.state));
+    this.setState({ filter: value });
   };
 
   handleDelete = id => {
